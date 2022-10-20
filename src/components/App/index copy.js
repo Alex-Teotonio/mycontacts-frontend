@@ -14,7 +14,7 @@ export default function ContactList () {
             </Header>
 
             <ListContacts>
-                <button type='button'>
+                <button>
                     <span>Nome</span>
                     <img src={arrow}></img>
                 </button>
