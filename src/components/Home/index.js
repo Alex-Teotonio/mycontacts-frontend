@@ -4,6 +4,7 @@ import {Container, Header,ListContacts, Card, InputSearchContainer} from './styl
 import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
+import { Link } from 'react-router-dom';
 
 export default function Home () {
     return (
@@ -14,7 +15,7 @@ export default function Home () {
         <Container>
             <Header>
                 <strong> 3 contatos</strong>
-                <a href='/'>Novo contato</a>
+                <Link to='/new'>Novo contato</Link>
             </Header>
 
             <ListContacts>
@@ -38,9 +39,9 @@ export default function Home () {
                     </div>
 
                     <div className='actions'>
-                            <a href='/'>
+                            <Link to='/edit'>
                                 <img src={edit}></img>
-                            </a>
+                            </Link>
 
                             <button type='button'>
                                 <img src={trash}></img>                                

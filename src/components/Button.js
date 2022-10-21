@@ -10,6 +10,7 @@ export const Button = styled.button`
     background: #5061FC;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
     border-radius: 4px;
+    transition: background-color 0.2 ease-in;
 
     &:hover {
         background: ${({ theme }) => theme.primary.light};
