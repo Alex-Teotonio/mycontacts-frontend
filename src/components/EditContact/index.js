@@ -1,5 +1,7 @@
+import PageHeader from "../PageHeader";
+
 export default function EditContact() {
     return (
-        <div>Edit Contact</div>
+        <PageHeader title="Editar Alex Barbosa"/>
     );
 }
