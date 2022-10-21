@@ -99,6 +99,8 @@ export const Card = styled.div `
                 display: block;
                 margin-bottom: 4px
             }
+
+            color: ${({ theme }) => theme.gray}
         }
 
         .actions  {
