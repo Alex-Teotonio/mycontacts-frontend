@@ -4,15 +4,18 @@ import {Container, Header,ListContacts, Card, InputSearchContainer} from './styl
 import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
+
+import Modal from '../Modal';
+
 import { Link } from 'react-router-dom';
 
 export default function Home () {
     return (
-        <>
-        <InputSearchContainer>
-            <input type="text" placeholder="Pesquise seu nome"></input>
-        </InputSearchContainer>
         <Container>
+            <InputSearchContainer>
+                <input type="text" placeholder="Pesquise seu nome"></input>
+            </InputSearchContainer>
+            <Modal/>
             <Header>
                 <strong> 3 contatos</strong>
                 <Link to='/new'>Novo contato</Link>
@@ -98,6 +101,5 @@ export default function Home () {
                 </main>
                 </Card>
         </Container>
-        </>
     );
 }
