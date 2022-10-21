@@ -27,6 +27,24 @@ export const Header = styled.header `
     }
 `
 
+export const InputSearchContainer = styled.div `
+    width: 100%;
+
+    input {
+        background: #fff;
+        border-radius: 25px;
+        border: none;
+        width: 100%;
+        padding: 0px 16px;
+        outline: none;
+        height: 50px;
+
+        &::placeholder {
+            color: #BCBCBC;
+        }
+    }
+`
+
 export const ListContacts = styled.div `
     margin-top: 32px;
     display: flex;
