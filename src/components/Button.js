@@ -1,0 +1,26 @@
+import styled from "styled-components";
+
+export const Button = styled.button`
+    width: 100%;
+    height: 52px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    background: #5061FC;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+
+    &:hover {
+        background: ${({ theme }) => theme.primary.light};
+    }
+
+    &:focus {
+        background: ${({ theme }) => theme.primary.dark};
+    }
+
+    &[disabled] {
+        background: #CCC;
+        cursor: default;
+    }
+`
