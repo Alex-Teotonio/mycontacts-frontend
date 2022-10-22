@@ -5,9 +5,8 @@ import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 
-import Modal from '../Modal';
-
 import { Link } from 'react-router-dom';
+import Loader from '../Loader';
 
 export default function Home () {
     return (
@@ -15,7 +14,7 @@ export default function Home () {
             <InputSearchContainer>
                 <input type="text" placeholder="Pesquise seu nome"></input>
             </InputSearchContainer>
-            <Modal danger/>
+            <Loader/>
             <Header>
                 <strong> 3 contatos</strong>
                 <Link to='/new'>Novo contato</Link>
