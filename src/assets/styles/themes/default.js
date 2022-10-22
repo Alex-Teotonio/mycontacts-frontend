@@ -4,8 +4,14 @@ export default {
         main: "#5061FC",
         light: "#6674F4",
         lighter: "#E0E3FF",
-        dark: "#33F4F0"
+        dark: "#3646F0"
     },
 
-    gray: "#BCBCBC"
+    gray: "#BCBCBC",
+
+    danger: {
+        light: "#F97171",
+        main: "#FC5050",
+        dark: "#F63131"
+    }
 }

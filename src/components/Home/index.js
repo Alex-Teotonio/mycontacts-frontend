@@ -15,7 +15,7 @@ export default function Home () {
             <InputSearchContainer>
                 <input type="text" placeholder="Pesquise seu nome"></input>
             </InputSearchContainer>
-            <Modal/>
+            <Modal danger/>
             <Header>
                 <strong> 3 contatos</strong>
                 <Link to='/new'>Novo contato</Link>
