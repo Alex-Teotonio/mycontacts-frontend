@@ -27,7 +27,6 @@ export default function ContactForm({ buttonLabel}) {
 
 
         const isValidExists = errors.find((error) => error.field == 'email');
-        console.log(errors)
         if(event.target.value && !isEmailValid(event.target.value)){
             if(isValidExists) {
                 return
