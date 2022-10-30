@@ -8,7 +8,7 @@ import { Select } from '../Select';
 import {Button} from '../Button';
 
 import FormGroup from '../FormGroup';
-
+import useErrors from '../../hooks/useErrors';
 
 import isEmailValid from '../../utils/emailValidate';
 
@@ -20,23 +20,18 @@ export default function ContactForm({ buttonLabel}) {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [category, setCategory] = useState("");
-    const [errors, setErrors] = useState([]);
+
+    const {setError, removeErrorsByFieldName, getErrorMessageByFieldName} = useErrors()
 
     function handleEmailChange(event) {
         setEmail(event.target.value);
 
-
-        const isValidExists = errors.find((error) => error.field == 'email');
         if(event.target.value && !isEmailValid(event.target.value)){
-            if(isValidExists) {
-                return
-            }
-            setErrors((prevState) => [
-                ...prevState,
+            setError(
                 {field: 'email', message: 'Email inválido '}
-            ])
+            )
         } else {
-            setErrors((prevState) => prevState.filter((error) => error.field != 'email'))
+            removeErrorsByFieldName('email')
         }
 
     }
@@ -45,21 +40,16 @@ export default function ContactForm({ buttonLabel}) {
         setName(event.target.value);
 
         if(!event.target.value) {
-            setErrors(
-                (prevState) => [...prevState, {field: 'name', message: 'Nome é obrigatório '}]
+            setError(
+              {field: 'name', message: 'Nome é obrigatório '}
             );
         } else {
-            setErrors((prevState) => prevState.filter((error) => error.field !== 'name'));
+            removeErrorsByFieldName('name')
         }
-    }
-
-    function getErrorMessageByFieldName(fieldName) {
-        return errors.find((error) => error.field == fieldName)?.message;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(errors);
     }
     
     return(
