@@ -9,6 +9,9 @@ import {Button} from '../Button';
 
 import FormGroup from '../FormGroup';
 
+
+import isEmailValid from '../../utils/emailValidate';
+
 import PropTypes from 'prop-types';
 
 export default function ContactForm({ buttonLabel}) {
@@ -18,6 +21,26 @@ export default function ContactForm({ buttonLabel}) {
     const [phone, setPhone] = useState("");
     const [category, setCategory] = useState("");
     const [errors, setErrors] = useState([]);
+
+    function handleEmailChange(event) {
+        setEmail(event.target.value);
+
+
+        const isValidExists = errors.find((error) => error.field == 'email');
+        console.log(errors)
+        if(event.target.value && !isEmailValid(event.target.value)){
+            if(isValidExists) {
+                return
+            }
+            setErrors((prevState) => [
+                ...prevState,
+                {field: 'email', message: 'Email inválido '}
+            ])
+        } else {
+            setErrors((prevState) => prevState.filter((error) => error.field != 'email'))
+        }
+
+    }
 
     function handleNameChange(event) {
         setName(event.target.value);
@@ -33,6 +56,8 @@ export default function ContactForm({ buttonLabel}) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        console.log(errors);
+    }
     
     return(
         <Form onSubmit={handleSubmit}>
@@ -43,11 +68,12 @@ export default function ContactForm({ buttonLabel}) {
                     onChange={handleNameChange}
                 />
             </FormGroup>
-            <FormGroup error = "O formato do e-mail é inválido">
+            <FormGroup>
                 <Input 
-                    placeholder='E-mail' error
+                    type="email"
+                    placeholder='E-mail'
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={handleEmailChange}
                 />
             </FormGroup>
             <FormGroup>
