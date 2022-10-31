@@ -26,5 +26,5 @@ export default function useErrors() {
             return errorsFilter.message
         }
     }
-    return {setError, removeErrorsByFieldName, getErrorMessageByFieldName}
+    return {setError, removeErrorsByFieldName, getErrorMessageByFieldName,errors}
 }
