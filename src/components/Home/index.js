@@ -11,39 +11,51 @@ import { useEffect, useState } from 'react';
 import formatPhone from '../../utils/formatPhone';
 
 export default function Home () {
-    const [contacts, setContacts] = useState([])
+    const [contacts, setContacts] = useState([]);
+    const [orderBy, setOrderBy] = useState('asc');
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
-        fetch('http://localhost:3003/contacts')
+        fetch(`http://localhost:3003/contacts?orderBy=${orderBy}`)
             .then(async(response) => {
                 const arrayContacts = await response.json()
-                console.log(arrayContacts)
                 setContacts(arrayContacts);
             })
             .catch((error) => {
                 console.log('erro', error)
             })
-    },[]);
+    },[orderBy]);
 
-    console.log(contacts)
+    function handleToggleOrderBy() {
+        setOrderBy((prevState) => prevState == 'asc'? 'desc': 'asc')
+    }
+
+    function handleChangeSearchTerm (event) {
+        setSearchTerm(event.target.value);
+    }
+
+
+    const filterdContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
     return (
         <Container>
             <InputSearchContainer>
-                <input type="text" placeholder="Pesquise seu nome"></input>
+                <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
             </InputSearchContainer>
             <Header>
-                <strong>{`${contacts.length} ${contacts.length == 1 ? 'contato' : 'contatos'}`}</strong>
+                <strong>{`${filterdContacts.length} ${filterdContacts.length == 1 ? 'contato' : 'contatos'}`}</strong>
                 <Link to='/new'>Novo contato</Link>
             </Header>
 
-            <ListContacts>
-                <button type='button'>
+            <ListContacts orderBy={orderBy}>
+                <button type='button' onClick={handleToggleOrderBy}>
                     <span>Nome</span>
                     <img src={arrow}></img>
                 </button>
             </ListContacts>
 
             {
-                contacts.map((contact) => (
+                filterdContacts.map((contact) => (
                     <Card key={contact.id}>
                         <header>
                             <span>{contact.name}</span>

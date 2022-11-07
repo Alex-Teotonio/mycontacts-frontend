@@ -63,6 +63,8 @@ export const ListContacts = styled.div `
 
     img {
         margin-left: 8px;
+        transform: ${({orderBy}) => orderBy == 'asc'? `rotate(0deg)`: `rotate(180deg)`};
+        transition: 0.2s ease-in
     }
 `
 export const Card = styled.div `
