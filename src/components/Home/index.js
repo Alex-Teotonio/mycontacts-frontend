@@ -4,7 +4,8 @@ import {Container, Header,ListContacts, Card, InputSearchContainer} from './styl
 import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
-import Loader from '../../components/Loader'
+import Loader from '../../components/Loader';
+import {delay}from '../../utils/time'
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ export default function Home () {
         setIsLoading(true)
         fetch(`http://localhost:3003/contacts?orderBy=${orderBy}`)
             .then(async(response) => {
+                await delay(2000)
                 const arrayContacts = await response.json()
                 setContacts(arrayContacts);
             })
