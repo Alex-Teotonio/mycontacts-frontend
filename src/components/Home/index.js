@@ -4,6 +4,7 @@ import {Container, Header,ListContacts, Card, InputSearchContainer} from './styl
 import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
+import Loader from '../../components/Loader'
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -14,8 +15,10 @@ export default function Home () {
     const [contacts, setContacts] = useState([]);
     const [orderBy, setOrderBy] = useState('asc');
     const [searchTerm, setSearchTerm] = useState('');
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(`http://localhost:3003/contacts?orderBy=${orderBy}`)
             .then(async(response) => {
                 const arrayContacts = await response.json()
@@ -23,6 +26,9 @@ export default function Home () {
             })
             .catch((error) => {
                 console.log('erro', error)
+            })
+            .finally(() => {
+                setIsLoading(false)
             })
     },[orderBy]);
 
@@ -39,6 +45,7 @@ export default function Home () {
 
     return (
         <Container>
+            <Loader isLoading={isLoading}/>
             <InputSearchContainer>
                 <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
             </InputSearchContainer>
