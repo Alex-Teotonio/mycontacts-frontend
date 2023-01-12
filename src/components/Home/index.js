@@ -5,12 +5,12 @@ import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 import Loader from '../../components/Loader';
-import {delay}from '../../utils/time'
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import formatPhone from '../../utils/formatPhone';
+import ContactsService from '../../services/ContactsService';
 
 export default function Home () {
     const [contacts, setContacts] = useState([]);
@@ -19,19 +19,21 @@ export default function Home () {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        setIsLoading(true)
-        fetch(`http://localhost:3003/contacts?orderBy=${orderBy}`)
-            .then(async(response) => {
-                await delay(2000)
-                const arrayContacts = await response.json()
-                setContacts(arrayContacts);
-            })
-            .catch((error) => {
+
+        async function loadContacts() {
+            try{
+                setIsLoading(true)
+                const contactsList = await ContactsService.listContacts();
+                setContacts(contactsList);
+            }
+            catch(error){
                 console.log('erro', error)
-            })
-            .finally(() => {
+            }
+            finally {
                 setIsLoading(false)
-            })
+            }
+        }
+        loadContacts();
     },[orderBy]);
 
     function handleToggleOrderBy() {
