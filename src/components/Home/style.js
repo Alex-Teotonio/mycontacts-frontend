@@ -7,7 +7,9 @@ export const Container = styled.div `
 export const Header = styled.header `
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: ${({hasError}) => (hasError ? 'flex-end': 'space-between')};
+    border-bottom: 2px solid  ${({theme}) => theme.gray.light};
+    padding-bottom: 16px;
     strong {
         font-size: 24px;
     }
@@ -118,6 +120,21 @@ export const Card = styled.div `
 
     & {
         margin-bottom: 16px;
+    }
+`
+
+export const ErrorContainer = styled.div `
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    .details {
+        margin-left: 24px;
+        margin-bottom: 8px;
+    }
+    strong {
+        font-size: 22px;
+        color: ${({theme}) => theme.danger.main};
+        display: block
     }
 
 `
