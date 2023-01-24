@@ -21,21 +21,22 @@ export default function Home () {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false)
 
-    useEffect(() => {
-
-        async function loadContacts() {
-            try{
-                setIsLoading(true)
-                const contactsList = await ContactsService.listContacts();
-                setContacts(contactsList);
-            }
-            catch(error){
-                setHasError(true)
-            }
-            finally {
-                setIsLoading(false)
-            }
+    async function loadContacts() {
+        try{
+            setIsLoading(true)
+            const contactsList = await ContactsService.listContacts();
+            setContacts(contactsList);
+            setHasError(false)
         }
+        catch(error){
+            setHasError(true)
+        }
+        finally {
+            setIsLoading(false)
+        }
+    }
+
+    useEffect(() => {
         loadContacts();
     },[orderBy]);
 
@@ -47,6 +48,9 @@ export default function Home () {
         setSearchTerm(event.target.value);
     }
 
+    function handleTryAgain() {
+        loadContacts()
+    }
 
     const filterdContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -67,45 +71,51 @@ export default function Home () {
                 <img src={sad}></img>
                 <div className="details">
                     <strong>Ocorreu um erro ao obter os seus contatos</strong>
-                    <Button type="button">Tentar Novamente</Button>
+                    <Button type="button" onClick={handleTryAgain}>Tentar Novamente</Button>
                 </div>
 
             </ErrorContainer>
             }
 
-            <ListContacts orderBy={orderBy}>
-                <button type='button' onClick={handleToggleOrderBy}>
-                    <span>Nome</span>
-                    <img src={arrow}></img>
-                </button>
-            </ListContacts>
-
             {
-                filterdContacts.map((contact) => (
-                    <Card key={contact.id}>
-                        <header>
-                            <span>{contact.name}</span>
-                            { contact.category ? <small> Instagram</small> : ''}
-                        </header>
+                !hasError && (
+                    <>
+                        <ListContacts orderBy={orderBy}>
+                            <button type='button' onClick={handleToggleOrderBy}>
+                                <span>Nome</span>
+                                <img src={arrow}></img>
+                            </button>
+                        </ListContacts>
 
-                        <main>
-                            <div className='info'>
-                                <span>{contact.email}</span>
-                                <span>{formatPhone(contact.phone)}</span>
-                            </div>
+                        {
+                            filterdContacts.map((contact) => (
+                                <Card key={contact.id}>
+                                    <header>
+                                        <span>{contact.name}</span>
+                                        { contact.category ? <small> Instagram</small> : ''}
+                                    </header>
 
-                            <div className='actions'>
-                                    <Link to={`edit/${contact.id}`}>
-                                        <img src={edit}></img>
-                                    </Link>
+                                    <main>
+                                        <div className='info'>
+                                            <span>{contact.email}</span>
+                                            <span>{formatPhone(contact.phone)}</span>
+                                        </div>
 
-                                    <button type='button'>
-                                        <img src={trash}></img>                                
-                                    </button>
-                            </div>
-                        </main>          
-                    </Card>
-            ))}
+                                        <div className='actions'>
+                                                <Link to={`edit/${contact.id}`}>
+                                                    <img src={edit}></img>
+                                                </Link>
+
+                                                <button type='button'>
+                                                    <img src={trash}></img>                                
+                                                </button>
+                                        </div>
+                                    </main>          
+                                </Card>
+                        ))}
+                    </>
+                )
+            }
         </Container>
     );
 }
