@@ -9,7 +9,7 @@ import Loader from '../../components/Loader';
 import {Button} from '../../components/Button';
 
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import formatPhone from '../../utils/formatPhone';
 import ContactsService from '../../services/ContactsService';
@@ -21,7 +21,7 @@ export default function Home () {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false)
 
-    async function loadContacts() {
+    const loadContacts = useCallback(async () =>{
         try{
             setIsLoading(true)
             const contactsList = await ContactsService.listContacts();
@@ -34,11 +34,12 @@ export default function Home () {
         finally {
             setIsLoading(false)
         }
-    }
+    },[])
+        
 
     useEffect(() => {
         loadContacts();
-    },[orderBy]);
+    },[loadContacts]);
 
     function handleToggleOrderBy() {
         setOrderBy((prevState) => prevState == 'asc'? 'desc': 'asc')
