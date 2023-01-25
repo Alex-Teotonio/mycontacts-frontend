@@ -1,10 +1,11 @@
-import {Container, Header,ListContacts, Card, InputSearchContainer, ErrorContainer} from './style';
+import {Container, Header,ListContacts, Card, InputSearchContainer, ErrorContainer, EmptyListContainer} from './style';
 
 
 import arrow from '../../assets/images/arrow.svg';
 import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 import sad from '../../assets/images/sad.svg';
+import emptyBox from '../../assets/images/empty-box.svg';
 import Loader from '../../components/Loader';
 import {Button} from '../../components/Button';
 
@@ -58,13 +59,16 @@ export default function Home () {
     return (
         <Container>
             <Loader isLoading={isLoading}/>
-            <InputSearchContainer>
-                <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
-            </InputSearchContainer>
-            <Header hasError={hasError}>
+            { contacts.length > 0 && (
+                <InputSearchContainer>
+                    <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
+                </InputSearchContainer>
+            )}
+            <Header justifyContent={hasError ? 'flex-end': (contacts.length > 0 ? 'space-between': 'center')}>
                 {
-                    !hasError && <strong>{`${filterdContacts.length} ${filterdContacts.length == 1 ? 'contato' : 'contatos'}`}</strong>
-                }   
+                    (!hasError  && contacts.length > 0 ) && (
+                     <strong>{`${filterdContacts.length} ${filterdContacts.length == 1 ? 'contato' : 'contatos'}`}</strong>
+                )}   
                 <Link to='/new'>Novo contato</Link>
             </Header>
 
@@ -81,13 +85,27 @@ export default function Home () {
             {
                 !hasError && (
                     <>
-                        <ListContacts orderBy={orderBy}>
-                            <button type='button' onClick={handleToggleOrderBy}>
-                                <span>Nome</span>
-                                <img src={arrow}></img>
-                            </button>
-                        </ListContacts>
-
+                        {
+                            contacts.length < 1 && (
+                                <EmptyListContainer>
+                                    <img src={emptyBox}></img>
+                                    <p>
+                                    Você ainda não tem nenhum contato cadastrado!
+                                    Clique no botão <strong>”Novo contato”</strong> à cima para cadastrar o seu primeiro!
+                                    </p>
+                                </EmptyListContainer>
+                            )
+                        }
+                        {
+                            contacts.length > 0 && (
+                                <ListContacts orderBy={orderBy}>
+                                    <button type='button' onClick={handleToggleOrderBy}>
+                                        <span>Nome</span>
+                                        <img src={arrow}></img>
+                                    </button>
+                                </ListContacts>
+                            )
+                        }
                         {
                             filterdContacts.map((contact) => (
                                 <Card key={contact.id}>

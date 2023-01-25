@@ -8,7 +8,8 @@ export default {
     },
 
     gray: {
-       light: '#E6E6E6'
+       light: '#E6E6E6',
+       200: '#BCBCBC'
     },
 
     danger: {

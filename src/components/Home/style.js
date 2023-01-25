@@ -7,7 +7,7 @@ export const Container = styled.div `
 export const Header = styled.header `
     display: flex;
     align-items: center;
-    justify-content: ${({hasError}) => (hasError ? 'flex-end': 'space-between')};
+    justify-content: ${({justifyContent}) => (justifyContent)};
     border-bottom: 2px solid  ${({theme}) => theme.gray.light};
     padding-bottom: 16px;
     strong {
@@ -137,4 +137,22 @@ export const ErrorContainer = styled.div `
         display: block
     }
 
+`
+
+export const EmptyListContainer = styled.div`
+
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: 'center';
+
+    p {
+        text-align: center;
+        margin-top: 8px;
+        color: ${({theme}) => theme.gray[200]}
+    }
+    strong {
+        color: ${({theme}) => theme.primary.main}
+    }   
 `
