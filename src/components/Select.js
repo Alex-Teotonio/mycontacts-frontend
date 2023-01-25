@@ -16,4 +16,9 @@ export const Select = styled.select`
     &:focus {
         border: 2px solid ${({theme}) => theme.primary.main};
     }
+
+    &[disabled] {
+        background-color: ${({theme}) => theme.gray[100]};
+        border-color: ${({theme}) => theme.gray[200]};
+    }
 `
