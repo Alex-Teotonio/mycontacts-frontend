@@ -27,10 +27,13 @@ export default function ContactForm({ buttonLabel}) {
 
     useEffect(() => {
         async function loadCategories() {
-            const categories = await CategoriesService.listCategories();
-            setCategoriesList(categories)
+            try{
+                const categories = await CategoriesService.listCategories();
+                setCategoriesList(categories)
+            } catch(error){}
+                
         }
-        loadCategories()
+        loadCategories();
     }, [])
 
     const {errors,setError, removeErrorsByFieldName, getErrorMessageByFieldName} = useErrors()
@@ -49,8 +52,6 @@ export default function ContactForm({ buttonLabel}) {
         }
 
     }
-
-    console.log(categoriesList)
 
     function handleNameChange(event) {
         setName(event.target.value);
