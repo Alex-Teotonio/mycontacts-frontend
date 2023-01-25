@@ -1,4 +1,4 @@
-import {Container, Header,ListContacts, Card, InputSearchContainer, ErrorContainer, EmptyListContainer} from './style';
+import {Container, Header,ListContacts, Card, InputSearchContainer, ErrorContainer, EmptyListContainer,SearchNotFoundContainer} from './style';
 
 
 import arrow from '../../assets/images/arrow.svg';
@@ -6,6 +6,7 @@ import edit from '../../assets/images/edit.svg';
 import trash from '../../assets/images/trash.svg';
 import sad from '../../assets/images/sad.svg';
 import emptyBox from '../../assets/images/empty-box.svg';
+import magnifierQuestion from '../../assets/images/magnifier-question.svg'
 import Loader from '../../components/Loader';
 import {Button} from '../../components/Button';
 
@@ -86,7 +87,7 @@ export default function Home () {
                 !hasError && (
                     <>
                         {
-                            contacts.length < 1 && (
+                            (contacts.length < 1 && !isLoading) && (
                                 <EmptyListContainer>
                                     <img src={emptyBox}></img>
                                     <p>
@@ -96,8 +97,17 @@ export default function Home () {
                                 </EmptyListContainer>
                             )
                         }
+
                         {
-                            contacts.length > 0 && (
+                            (contacts.length > 0 && filterdContacts.length < 1) && (
+                                <SearchNotFoundContainer>
+                                    <img src={magnifierQuestion}></img>
+                                    <span>Nenhum resultado foi encontrado para <strong>{searchTerm}</strong></span>
+                                </SearchNotFoundContainer>
+                            )
+                        }
+                        {
+                            (contacts.length > 0 && filterdContacts.length > 1) && (
                                 <ListContacts orderBy={orderBy}>
                                     <button type='button' onClick={handleToggleOrderBy}>
                                         <span>Nome</span>

@@ -10,6 +10,7 @@ export const Header = styled.header `
     justify-content: ${({justifyContent}) => (justifyContent)};
     border-bottom: 2px solid  ${({theme}) => theme.gray.light};
     padding-bottom: 16px;
+    margin-top: 8px;
     strong {
         font-size: 24px;
     }
@@ -155,4 +156,16 @@ export const EmptyListContainer = styled.div`
     strong {
         color: ${({theme}) => theme.primary.main}
     }   
+`
+
+export const SearchNotFoundContainer = styled.div`
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+
+    span {
+        margin-left: 8px;
+        word-break: break-all;
+        color: ${({theme}) => theme.gray[200]}
+    }
 `
