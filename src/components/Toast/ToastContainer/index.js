@@ -1,9 +1,12 @@
 import { Container } from "./style";
+import ToastMessage from "../ToastMessage";
 
 export default function ToastContainer() {
   return (
     <Container>
-      <h1>ToastContainer</h1>
+      <ToastMessage text="Default Toast"/>
+      <ToastMessage text="Error Toast" type="danger"/>
+      <ToastMessage text="Succes Toast" type="success"/>
     </Container>
   )
 }
