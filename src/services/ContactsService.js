@@ -7,6 +7,10 @@ class ContactsService{
   async listContacts(orderBy = 'asc'){
     return this.httpClient.get(`/contacts?orderBy=${orderBy}`)
   }
+
+  async createContacts(payload){
+    return this.httpClient.post(`/contacts`, payload)
+  }
 }
 
 export default new ContactsService();
