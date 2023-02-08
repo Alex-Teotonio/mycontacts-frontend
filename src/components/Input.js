@@ -21,4 +21,9 @@ export const Input = styled.input`
         color: ${theme.danger.main};
         border-color: ${theme.danger.main} !important
     ` }
+
+    &[disabled] {
+        background-color: ${({theme}) => theme.gray[100]};
+        border-color: ${({theme}) => theme.gray[200]};
+    }
 `
