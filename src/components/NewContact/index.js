@@ -14,7 +14,7 @@ export default function NewContact() {
                 category_id: formData.category
             }
             await ContactsService.createContacts(newContact);
-            toast('succes', 'Contato cadastrado com sucesso');
+            toast('success', 'Contato cadastrado com sucesso');
         } catch(e) {
             toast('danger', 'Ocorreu um erro');
         }
