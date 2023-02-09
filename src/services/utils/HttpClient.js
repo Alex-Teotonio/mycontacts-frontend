@@ -24,6 +24,7 @@ class HttpClient {
     if(options.body) {
       headers.append('Content-Type', 'application/json')
     }
+
     const response = await fetch(`${this.baseUrl}${path}`, {
       method: options.method,
       body: JSON.stringify(options.body),
