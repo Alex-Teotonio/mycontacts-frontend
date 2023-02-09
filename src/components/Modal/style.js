@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Overlay = styled.div`
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3.5px);
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     left: 0;
@@ -21,11 +21,14 @@ export const Container = styled.div`
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
     border-radius: 4px;
 
-    h1 {
+    > h1 {
         font-size: 22px;
         color: ${({theme, danger}) => danger? theme.danger.main: theme.danger.gray}
     }
 
+    .modal-body {
+        margin-top: 32px;
+    }
     p {
         margin-top: 8px;
     }
@@ -40,7 +43,7 @@ export const Footer = styled.footer`
     .cancel-button {
         background: transparent;
         border: none;
-        margin-right: 8px;
+        margin-right: 24px;
         color: ${({theme}) => theme.gray};
         font-size: 16px;
     }

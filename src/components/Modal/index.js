@@ -5,19 +5,21 @@ import {Button} from '../Button';
 
 import  ReactDOM from 'react-dom';
 
-export default function Modal({ danger }) {
+export default function Modal({ danger, title, children, cancelLabel, confirmLabel, onCancel, onConfirm }) {
 
     return(
         ReactDOM.createPortal(
             <Overlay>
                 <Container danger={danger}>
                     <h1>
-                        Título do modal
+                        {title}
                     </h1>
-                    <p>Corpo do modal</p>
+                    <div className="modal-body">
+                        {children}
+                    </div>
                     <Footer>
-                        <button type="button" className="cancel-button" >Cancelar</button>
-                        <Button type="button" danger={danger}>Deletar</Button>
+                        <button type="button" onClick={onCancel} className="cancel-button" >{cancelLabel}</button>
+                        <Button type="button" onClick={onConfirm} danger={danger}>{confirmLabel}</Button>
                     </Footer>
                 </Container>
             </Overlay>,
@@ -28,9 +30,17 @@ export default function Modal({ danger }) {
 }
 
 Modal.propTypes = {
-    danger: PropTypes.bool
+    danger: PropTypes.bool,
+    title: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    cancelLabel: PropTypes.string, 
+    confirmLabel: PropTypes.string,
+     onCancel: PropTypes.func,
+     onConfirm: PropTypes.func
 }
 
 Modal.defaultProps = {
-    danger: false
+    danger: false,
+    cancelLabel: 'Cancelar',
+    confirmLabel: 'Confirmar'
 }

@@ -9,6 +9,7 @@ import emptyBox from '../../assets/images/empty-box.svg';
 import magnifierQuestion from '../../assets/images/magnifier-question.svg'
 import Loader from '../../components/Loader';
 import {Button} from '../../components/Button';
+import Modal from '../Modal';
 
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
@@ -60,6 +61,7 @@ export default function Home () {
     return (
         <Container>
             <Loader isLoading={isLoading}/>
+            <Modal danger title="Deseja realmente deletar" confirmLabel="Deletar" onConfirm={() => alert('confirmou')} onCancel={() => alert('cancelou')} >Teste testest uvu</Modal>
             { contacts.length > 0 && (
                 <InputSearchContainer>
                     <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
