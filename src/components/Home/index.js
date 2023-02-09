@@ -22,7 +22,9 @@ export default function Home () {
     const [orderBy, setOrderBy] = useState('asc');
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false)
+    const [hasError, setHasError] = useState(false);
+    const [isDeleteModalVisible, setIsDeleteVisible] = useState(false);
+    const [contactBeingDelete, setCOntactBeingDelete] = useState([])
 
     const loadContacts = useCallback(async () =>{
         try{
@@ -52,6 +54,14 @@ export default function Home () {
         setSearchTerm(event.target.value);
     }
 
+    function handleOpenDeleteModal(contact) {
+        setCOntactBeingDelete(contact)
+        setIsDeleteVisible(true)
+    }
+
+    function handleCloseDeleteModal() {
+        setIsDeleteVisible(false)
+    }
     function handleTryAgain() {
         loadContacts()
     }
@@ -61,7 +71,16 @@ export default function Home () {
     return (
         <Container>
             <Loader isLoading={isLoading}/>
-            <Modal danger title="Deseja realmente deletar" confirmLabel="Deletar" onConfirm={() => alert('confirmou')} onCancel={() => alert('cancelou')} >Teste testest uvu</Modal>
+            <Modal 
+                danger
+                visible={isDeleteModalVisible}
+                title={`Deseja realmente deletar ${contactBeingDelete.name}`}
+                confirmLabel="Deletar"
+                onConfirm={() => alert('confirmou')}
+                onCancel={handleCloseDeleteModal} 
+            >
+                Esta ação não poderá ser desfeita!
+            </Modal>
             { contacts.length > 0 && (
                 <InputSearchContainer>
                     <input type="text" onChange={handleChangeSearchTerm} placeholder="Pesquise seu nome"></input>
@@ -137,7 +156,7 @@ export default function Home () {
                                                     <img src={edit}></img>
                                                 </Link>
 
-                                                <button type='button'>
+                                                <button onClick={()=>handleOpenDeleteModal(contact)} type='button'>
                                                     <img src={trash}></img>                                
                                                 </button>
                                         </div>
