@@ -40,11 +40,13 @@ Modal.propTypes = {
     confirmLabel: PropTypes.string,
     onCancel: PropTypes.func,
     onConfirm: PropTypes.func,
+    isLoading: PropTypes.bool,
     visible: PropTypes.bool.isRequired
 }
 
 Modal.defaultProps = {
     danger: false,
     cancelLabel: 'Cancelar',
-    confirmLabel: 'Confirmar'
+    confirmLabel: 'Confirmar',
+    isLoading: false
 }

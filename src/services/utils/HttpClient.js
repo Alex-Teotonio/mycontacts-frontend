@@ -23,6 +23,12 @@ class HttpClient {
         body: payload
       })
   }
+  async delete(path) {
+
+    return this.makeRequest(path, {
+        method: 'DELETE'
+      })
+  }
 
 
   async makeRequest(path, options) {
@@ -39,10 +45,11 @@ class HttpClient {
       body: JSON.stringify(options.body),
       headers
     });
-    const contentType = response.headers.get('Content-Type')
+    const contentType = response.headers.get('Content-Type');
+    console.log(contentType)
 
     let body = null;
-    if(contentType.includes('application/json')) {
+    if(contentType !== null && contentType.includes('application/json')) {
       body = await response.json();
     }
 

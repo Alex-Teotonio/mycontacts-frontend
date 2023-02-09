@@ -16,7 +16,9 @@ class ContactsService{
     return this.httpClient.put(`/contacts/${id}`, payload)
   }
 
-
+  deleteContacts(id){
+    return this.httpClient.delete(`/contacts/${id}`)
+  }
   getContactById(id) {
     return (this.httpClient.get(`/contacts/${id}`))
   }
