@@ -27,10 +27,16 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit},ref) => {
 
     useImperativeHandle(ref, () => ({
         setFieldsValues: (contact) => {
-            setName(contact.name);
-            setEmail(contact.email);
-            setPhone(contact.phone);
-            setCategory(contact.category_id)
+            setName(contact.name || '');
+            setEmail(contact.email || '');
+            setPhone(formatPhone(contact.phone || ''));
+            setCategory(contact.category_id || '')
+        },
+        resetFields: () => {
+            setName('');
+            setEmail('');
+            setPhone(formatPhone(''));
+            setCategory('')
         }
     }), [])
 
@@ -90,10 +96,6 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit},ref) => {
         setIsSubmiting(true)
         await onSubmit({name, email, phone,category })
         setIsSubmiting(false);
-        setName('');
-        setEmail('');
-        setPhone();
-        setCategory('');
         
     }
     

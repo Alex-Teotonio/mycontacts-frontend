@@ -12,6 +12,11 @@ class ContactsService{
     return this.httpClient.post(`/contacts`, payload)
   }
 
+  updateContacts(id, payload){
+    return this.httpClient.put(`/contacts/${id}`, payload)
+  }
+
+
   getContactById(id) {
     return (this.httpClient.get(`/contacts/${id}`))
   }
